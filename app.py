@@ -176,6 +176,13 @@ SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTj5CAnFDBeDVR_AQcl
 
 df = pd.read_csv(SHEET_URL)
 
+df = df.rename(columns={
+    "Timestamp": "date",
+    "Name": "name",
+    "Bags Collected": "bags",
+    "Location": "location"
+})
+
 # =========================
 # HELPER FUNCTIONS
 # =========================
