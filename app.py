@@ -172,18 +172,9 @@ header {visibility: hidden;}
 # =========================
 # DATA SETUP
 # =========================
-DATA_FILE = Path("cleanups.csv")
+SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTj5CAnFDBeDVR_AQcllFrzzcKNwfrcVIg53-uKKGGg0edEByX_Sg44tu99INkLjI0Bfuu2xVvghHvu/pub?output=csv"
 
-if not DATA_FILE.exists():
-    empty_df = pd.DataFrame(columns=["name", "bags", "location", "date"])
-    empty_df.to_csv(DATA_FILE, index=False)
-
-df = pd.read_csv(DATA_FILE)
-
-# Make sure old CSV files still work
-for column in ["name", "bags", "location", "date"]:
-    if column not in df.columns:
-        df[column] = "" if column != "bags" else 0
+df = pd.read_csv(SHEET_URL)
 
 # =========================
 # HELPER FUNCTIONS
@@ -255,33 +246,8 @@ with left_col:
     st.markdown('<div class="section-title">⚔️ Enter the Battle</div>', unsafe_allow_html=True)
     st.markdown('<div class="small-text">Log your cleanup and earn 10 points for every bag collected.</div>', unsafe_allow_html=True)
 
-    with st.form("cleanup_form", clear_on_submit=True):
-        name = st.text_input("Your name", placeholder="e.g. Puchita")
-        bags = st.number_input("Number of bags collected", min_value=1, step=1)
-        location = st.text_input("Cleanup location", placeholder="e.g. Victoria Park")
-
-        submitted = st.form_submit_button("Submit Cleanup")
-
-        if submitted:
-            if name.strip() == "":
-                st.error("Please enter your name.")
-            elif location.strip() == "":
-                st.error("Please enter a location.")
-            else:
-                new_row = pd.DataFrame([
-                    {
-                        "name": name.strip(),
-                        "bags": int(bags),
-                        "location": location.strip(),
-                        "date": datetime.now().strftime("%Y-%m-%d %H:%M")
-                    }
-                ])
-
-                df = pd.concat([df, new_row], ignore_index=True)
-                df.to_csv(DATA_FILE, index=False)
-
-                st.success(f"Nice work! You earned {int(bags) * 10} points 🌱")
-                st.rerun()
+FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScKwpVKZx-EaoLGQ6ODSGbH7Qs18dP3NH67BBwk2lmsTgn7Bw/viewform?usp=publish-editor"
+st.link_button("🌱 Submit Cleanup", FORM_URL)
 
 
 with st.container():
@@ -333,7 +299,10 @@ with st.container():
     st.markdown('<div class="section-title">📍 Recent Cleanup Activity</div>', unsafe_allow_html=True)
 
     if df.empty:
-        st.write("No activity yet.")
+        st.markdown(
+            '<p style="color:#52734d; margin-left:25px;">No activity yet.</p>',
+            unsafe_allow_html=True
+        )
     else:
         recent = df.sort_values("date", ascending=False).head(5)
 
@@ -353,4 +322,3 @@ st.markdown("""
     🌿 Small actions. Big impact. Keep battling for a cleaner planet. 🌿
 </div>
 """, unsafe_allow_html=True)
-
