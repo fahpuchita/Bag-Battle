@@ -176,6 +176,10 @@ SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTj5CAnFDBeDVR_AQcl
 
 df = pd.read_csv(SHEET_URL)
 
+# clean column names
+df.columns = df.columns.str.strip()
+
+# rename Google Form columns
 df = df.rename(columns={
     "Timestamp": "date",
     "Name": "name",
@@ -183,7 +187,8 @@ df = df.rename(columns={
     "Location": "location"
 })
 
-st.write(df.columns)
+# make bags numeric
+df["bags"] = pd.to_numeric(df["bags"], errors="coerce").fillna(0).astype(int)
 
 # =========================
 # HELPER FUNCTIONS
