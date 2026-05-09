@@ -264,7 +264,7 @@ with left_col:
     st.link_button("🌱 Submit Cleanup", FORM_URL)
 
 
-with st.container():
+with left_col:
     st.markdown('<div class="section-title">🎮 How Points Work</div>', unsafe_allow_html=True)
     st.markdown('<p style="color:#52734d;margin-left: 25px;">🗑️ 1 bag = 10 points</p>', unsafe_allow_html=True)
     st.markdown('<p style="color:#52734d;margin-left: 25px;">🏆 Top 3 players get medals</p>', unsafe_allow_html=True)
@@ -309,7 +309,7 @@ with right_col:
 # =========================
 # RECENT ACTIVITY
 # =========================
-with st.container():
+with left_col:
     st.markdown('<div class="section-title">📍 Recent Cleanup Activity</div>', unsafe_allow_html=True)
 
     if df.empty:
