@@ -260,8 +260,8 @@ with left_col:
     st.markdown('<div class="section-title">⚔️ Enter the Battle</div>', unsafe_allow_html=True)
     st.markdown('<div class="small-text">Log your cleanup and earn 10 points for every bag collected.</div>', unsafe_allow_html=True)
 
-FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScKwpVKZx-EaoLGQ6ODSGbH7Qs18dP3NH67BBwk2lmsTgn7Bw/viewform?usp=publish-editor"
-st.link_button("🌱 Submit Cleanup", FORM_URL)
+    FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScKwpVKZx-EaoLGQ6ODSGbH7Qs18dP3NH67BBwk2lmsTgn7Bw/viewform?usp=publish-editor"
+    st.link_button("🌱 Submit Cleanup", FORM_URL)
 
 
 with st.container():
