@@ -183,6 +183,8 @@ df = df.rename(columns={
     "Location": "location"
 })
 
+st.write(df.columns)
+
 # =========================
 # HELPER FUNCTIONS
 # =========================
